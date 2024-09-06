@@ -22,7 +22,7 @@
 
 #include "xlat_tables_private.h"
 
-#if LOG_LEVEL < LOG_LEVEL_VERBOSE
+#if LOG_LEVEL < LOG_LEVEL_VERBOSE*10
 
 void xlat_mmap_print(__unused const mmap_region_t *mmap)
 {
@@ -388,7 +388,7 @@ static int xlat_get_mem_attributes_internal(const xlat_ctx_t *ctx,
 
 	desc = *entry;
 
-#if LOG_LEVEL >= LOG_LEVEL_VERBOSE
+#if LOG_LEVEL >= LOG_LEVEL_VERBOSE*10
 	VERBOSE("Attributes: ");
 	xlat_desc_print(ctx, desc);
 	printf("\n");
