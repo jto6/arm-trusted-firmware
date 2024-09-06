@@ -608,6 +608,7 @@ int spmd_setup(void)
 	 * If the SPMC is at EL3, then just initialise it directly. The
 	 * shenanigans of when it is at a lower EL are not needed.
 	 */
+#if SPMC_AT_EL3
 	if (is_spmc_at_el3()) {
 		/* Allow the SPMC to populate its attributes directly. */
 		spmc_populate_attrs(&spmc_attrs);
@@ -618,6 +619,7 @@ int spmd_setup(void)
 		}
 		return 0;
 	}
+#endif
 
 	spmc_ep_info = bl31_plat_get_next_image_ep_info(SECURE);
 	if (spmc_ep_info == NULL) {
@@ -738,10 +740,12 @@ static uint64_t spmd_smc_forward(uint32_t smc_fid,
 				 void *handle,
 				 uint64_t flags)
 {
+#if SPMC_AT_EL3
 	if (is_spmc_at_el3() && !secure_origin) {
 		return spmc_smc_handler(smc_fid, secure_origin, x1, x2, x3, x4,
 					cookie, handle, flags);
 	}
+#endif
 
 	return spmd_smc_switch_state(smc_fid, secure_origin, x1, x2, x3, x4,
 				     handle, flags);
@@ -809,6 +813,7 @@ uint64_t spmd_ffa_smc_handler(uint32_t smc_fid,
 			      void *handle,
 			      uint64_t flags)
 {
+#if SPMC_AT_EL3
 	if (is_spmc_at_el3()) {
 		/*
 		 * If we have an SPMC at EL3 allow handling of the SMC first.
@@ -821,7 +826,9 @@ uint64_t spmd_ffa_smc_handler(uint32_t smc_fid,
 						handle, flags);
 		}
 	}
-	return spmd_smc_handler(smc_fid, x1, x2, x3, x4, cookie,
+#endif
+
+        return spmd_smc_handler(smc_fid, x1, x2, x3, x4, cookie,
 				handle, flags);
 }
 
