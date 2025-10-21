@@ -265,7 +265,21 @@ make PLAT=<platform> DEBUG=1 LOG_LEVEL=40 all
 - Use ARM Fast Models or QEMU for emulation/debugging
 - Enable stack protector: `ENABLE_STACK_PROTECTOR=all`
 
-## Additional Documentation
+## Learning and Documentation
+
+### Personal Notebook
+
+This repository includes a `notebook.md` file for capturing personal learning notes and insights about TF-A.
+
+**Important**: When answering questions about TF-A concepts or implementation details, always ask the user if they would like you to capture the key insights and understandings in their `notebook.md` file. This helps build a personal reference guide over time.
+
+Example workflow:
+1. User asks: "What is MPIDR?"
+2. You provide a detailed answer
+3. You ask: "Would you like me to add this explanation to your notebook.md for future reference?"
+4. If yes, append the explanation to notebook.md with proper formatting and date
+
+### Additional Documentation
 
 **For deeper analysis, see:**
 - `code_analysis.md` - Comprehensive codebase analysis including:
